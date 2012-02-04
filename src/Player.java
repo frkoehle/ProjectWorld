@@ -9,8 +9,8 @@ public class Player{
 	double d;
 	double jump = 0;
 	double dt = .1;
-	private double veiwRotx;
-	private double veiwRoty;
+	private double viewRotx;
+	private double viewRoty;
 	double fly = 0;
 	double[] acc = new double[] {0,-9.8,0};
 	double[] vel = new double[] {0,0,0};
@@ -24,10 +24,10 @@ public class Player{
 
 	public void update()
 	{
-		a = Math.sin((double)(veiwRotx)/360*2*Math.PI);
-		b = Math.cos((double)(veiwRotx)/360*2*Math.PI);
-		c = Math.sin((double)(veiwRoty)/360*2*Math.PI);
-		d = Math.cos((double)(veiwRoty)/360*2*Math.PI);
+		a = Math.sin((double)(viewRotx)/360*2*Math.PI);
+		b = Math.cos((double)(viewRotx)/360*2*Math.PI);
+		c = Math.sin((double)(viewRoty)/360*2*Math.PI);
+		d = Math.cos((double)(viewRoty)/360*2*Math.PI);
 
 		if(fly == 0)
 		{
@@ -59,28 +59,28 @@ public class Player{
 	}
 
 	//Getters and Setters
-	public double getVeiwRotx()
+	public double getViewRotx()
 	{
-		return veiwRotx;
+		return viewRotx;
 	}
 
-	public void setVeiwRotx(double veiwRotx)
+	public void setViewRotx(double viewRotx)
 	{
-		this.veiwRotx = veiwRotx%360;
+		this.viewRotx = viewRotx%360;
 	}
 
-	public double getVeiwRoty()
+	public double getViewRoty()
 	{
-		return veiwRoty;
+		return viewRoty;
 	}
 
-	public void setVeiwRoty(double veiwRoty)
+	public void setViewRoty(double viewRoty)
 	{
-		if(veiwRoty>89)
-			veiwRoty = 89;
-		if(veiwRoty<-89)
-			veiwRoty = -89;
-		this.veiwRoty = veiwRoty;
+		if(viewRoty>89)
+			viewRoty = 89;
+		if(viewRoty<-89)
+			viewRoty = -89;
+		this.viewRoty = viewRoty;
 	}
 
 }

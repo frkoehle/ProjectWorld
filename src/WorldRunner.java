@@ -58,7 +58,7 @@ public class WorldRunner{
 		}
 		frame.getContentPane().setCursor(blankCursor); //Sets the blank cursor
 		GLCapabilities capabilities=new GLCapabilities(GLProfile.getDefault());
-		capabilities.setDoubleBuffered(true);
+		//capabilities.setDoubleBuffered(true);
 		canvas=new  World (capabilities); //creates a world
 		animator = new FPSAnimator(canvas, 60);
 		animator.start();
@@ -91,8 +91,8 @@ public class WorldRunner{
 			public void mouseMoved(MouseEvent e)
 			{
 
-				canvas.p.setVeiwRotx((double)(canvas.p.getVeiwRotx())+(double)(e.getXOnScreen()-rX)/10);
-				canvas.p.setVeiwRoty((double)(canvas.p.getVeiwRoty())-(double)(e.getYOnScreen()-rY)/10);
+				canvas.p.setViewRotx((double)(canvas.p.getViewRotx())+(double)(e.getXOnScreen()-rX)/10);
+				canvas.p.setViewRoty((double)(canvas.p.getViewRoty())-(double)(e.getYOnScreen()-rY)/10);
 				robo.mouseMove(rX, rY); //Resets mouse to window center after moving
 
 			}
@@ -201,6 +201,5 @@ public class WorldRunner{
 
 		frame.setVisible(true);
 		frame.setLocation(screenX, screenY);
-
 	}
 }

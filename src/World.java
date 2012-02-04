@@ -30,7 +30,7 @@ public class World extends GLJPanel {
 	TextRenderer renderer;
 	ArrayList<Building> buildings = new ArrayList<Building>();
 	double field = 50; //Field of view angle
-	double view; //View distance
+	double view = 300; //View distance
 	double eyelevel = 5;
 	Player p;
 
@@ -42,11 +42,10 @@ public class World extends GLJPanel {
 	 */
 	public World(GLCapabilities defaultCapab){
 		super(defaultCapab);
-		view = 300;
 		p = new Player(10, 00, 10);
 		generateWorld();
 
-
+		lastPhysicsTime = System.nanoTime();
 
 		addGLEventListener(new GLEventListener() {
 			public void display( GLAutoDrawable drawable ) {
@@ -67,8 +66,6 @@ public class World extends GLJPanel {
 
 			public void init(GLAutoDrawable drawable) {
 				drawable.getGL().glClearColor(0.0f,0.0f,0.0f,0.0f);  
-
-
 
 				//make sure hidden faces aren't drawn
 				drawable.getGL().glEnable( GL.GL_DEPTH_TEST );
@@ -99,9 +96,10 @@ public class World extends GLJPanel {
 	 * @param height
 	 */
 	public  void setup( GL2 gl, int width, int height ) {
-		gl.glMatrixMode( GL2.GL_PROJECTION );
-		gl.glLoadIdentity();
+		resetPerspective(gl);
 
+		renderer = new TextRenderer(new Font("SansSerif", Font.BOLD, 12));
+		
 		gl.glEnable(GL2.GL_NORMALIZE);
 
 		/* SETTING UP LIGHTS */
@@ -137,10 +135,21 @@ public class World extends GLJPanel {
 		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 
 		gl.glViewport( 0, 0, width, height );
-
-
 	}
 
+
+	// Our physics must be independent of how fast we can render
+	long lastPhysicsTime;
+	private void updatePhysics() {
+		final double PFPS = 60;
+		final long nsBetweenFrames = (long) (Math.pow(10, 9) / PFPS);
+		final long now = System.nanoTime();
+		while (now - lastPhysicsTime > nsBetweenFrames) {
+			p.update();
+			lastPhysicsTime += nsBetweenFrames;
+		}
+	}
+	
 	/**
 	 * Renders everything
 	 * 
@@ -149,54 +158,51 @@ public class World extends GLJPanel {
 	 * @param height
 	 */
 	private void resetPerspective(GL2 gl2){
-		p.update();
 		gl2.glMatrixMode( GL2.GL_PROJECTION );
 		gl2.glLoadIdentity();
 		gl2.glClearColor(0f, 0f, 0f, 0f); //black
 
 		GLU glu = new GLU();
 
-
-		/* Code to move the camera (it is in the same place as the player for now) */
-
 		glu.gluPerspective(field,1.0,1.0,view);
 
 	}
 	public  void render( GL2 gl, int width, int height )
 	{
-		resetPerspective(gl);
+		updatePhysics();
+		
 		gl.glMatrixMode( GL2.GL_MODELVIEW );
 		gl.glLoadIdentity();
 		
+		/* Code to move the camera (it is in the same place as the player for now) */
 		glu.gluLookAt(p.pos[0],p.pos[1]+eyelevel,p.pos[2]
 				,p.pos[0]+p.d*p.a
 				,p.pos[1]+p.c+eyelevel
 				,p.pos[2]-p.d*p.b
 				,0,1,0); //good
 
-		
-		renderer = new TextRenderer(new Font("SansSerif", Font.BOLD, 12));
-
-		/* AXIS */
 		gl.glClear( GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT );
-		gl.glPushMatrix();
+		
+		/* AXIS */
+		/*
 		gl.glBegin(gl.GL_LINES);
-		gl.glVertex3d(0, 0, 1000);
-		gl.glVertex3d(0, 0, -1000);
+		gl.glVertex3f(0, 0, 1000);
+		gl.glVertex3f(0, 0, -1000);
 		gl.glEnd();
 		gl.glBegin(gl.GL_LINES);
-		gl.glVertex3d(0, 1000, 0);
-		gl.glVertex3d(0, -1000, 0);
+		gl.glVertex3f(0, 1000, 0);
+		gl.glVertex3f(0, -1000, 0);
 		gl.glEnd();
 		gl.glBegin(gl.GL_LINES);
-		gl.glVertex3d(1000, 0, 0);
-		gl.glVertex3d(-1000, 0, 0);
+		gl.glVertex3f(1000, 0, 0);
+		gl.glVertex3f(-1000, 0, 0);
 		gl.glEnd();
-
+*/
 
 		/* Buildings */
 		for(Building a : buildings)
-			a.draw(gl);
+			if (a.within(view, p.pos[0], p.pos[2]))
+				a.draw(gl);
 	}
 
 	public void generateWorld()

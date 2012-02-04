@@ -75,7 +75,6 @@ public class Building {
 		gl.glVertex3f(pos[0]			, pos[1] 			,pos[2]);
 		gl.glVertex3f(pos[0]			, pos[1]+dim[1]		,pos[2]);
 
-
 		gl.glEnd();
 		
 		//TOP
@@ -115,5 +114,10 @@ public class Building {
 		gl.glVertex3f(pos[0]+dim[0]			, pos[1]+dim[1] 	,pos[2]);
 		
 		gl.glEnd();
+	}
+
+	public boolean within(double view, double x, double z) {
+		//FIXME? add "grace" to consider the dimensions of building
+		return Math.pow(view, 2) > Math.pow(pos[0] - x, 2) + Math.pow(pos[2] - z, 2);
 	}
 }
