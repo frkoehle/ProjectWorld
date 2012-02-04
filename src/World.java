@@ -159,7 +159,7 @@ public class World extends GLJPanel {
 
 		/* Code to move the camera (it is in the same place as the player for now) */
 
-		glu.gluPerspective(field,1.0,1.0,view*4);
+		glu.gluPerspective(field,1.0,1.0,view);
 
 	}
 	public  void render( GL2 gl, int width, int height )
@@ -207,14 +207,18 @@ public class World extends GLJPanel {
 			System.out.println(i);
 		}
 	}
-	public void addBuilding(double yard)
+	public void addBuilding(float yard)
 	{
 		boolean added = false;
 		while(added == false)
 		{
 			boolean space = true;
 			double st = (int)(Math.random()*10) + 8;
-			Building build = new Building((int)(Math.random()*7 + 2),(int)(Math.random()*25)+20 , (int)(Math.random()*25)+20 , 0, 0, 0, yard);
+			Building build = new Building(
+					(int)(Math.random()*7 + 2),
+					(int)(Math.random()*25)+20 , 
+					(int)(Math.random()*25)+20 , 
+					0f, 0f, 0f, yard);
 			if(buildings.size() == 0)
 			{
 				System.out.println("SOIRJFSIODJF");
@@ -226,7 +230,7 @@ public class World extends GLJPanel {
 					for(int j = 0 ; j < 500 && added == false;  j ++)
 					{
 						{
-							build.setPos(new double[] {i,0,j});
+							build.setPos(new float[] {i,0,j});
 							space = true;
 							for(Building a : buildings)
 							{
