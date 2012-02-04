@@ -117,21 +117,16 @@ public class WorldRunner{
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(e.getKeyChar()=='w')
-				{
+				char c = e.getKeyChar();
+				switch (c) {
+				case 'w':
+				case 's':
 					canvas.p.incrz = 0;
-				}
-				if(e.getKeyChar()=='s')
-				{
-					canvas.p.incrz = 0;
-				}
-				if(e.getKeyChar()=='a')
-				{
+					break;
+				case 'a':
+				case 'd':
 					canvas.p.incrx = 0;
-				}
-				if(e.getKeyChar()=='d')
-				{
-					canvas.p.incrx = 0;
+					break;
 				}
 			}
 
