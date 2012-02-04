@@ -30,7 +30,7 @@ public class World extends GLJPanel {
 	TextRenderer renderer;
 	ArrayList<Building> buildings = new ArrayList<Building>();
 	double field = 50; //Field of view angle
-	double veiw; //View distance
+	double view; //View distance
 	double eyelevel = 5;
 	Player p;
 
@@ -42,7 +42,7 @@ public class World extends GLJPanel {
 	 */
 	public World(GLCapabilities defaultCapab){
 		super(defaultCapab);
-		veiw = 300;
+		view = 300;
 		p = new Player(10, 00, 10);
 		generateWorld();
 
@@ -159,14 +159,7 @@ public class World extends GLJPanel {
 
 		/* Code to move the camera (it is in the same place as the player for now) */
 
-
-
-		glu.gluPerspective(field,1.0,1.0,veiw*4);
-		glu.gluLookAt(p.pos[0],p.pos[1]+eyelevel,p.pos[2]
-				,p.pos[0]+p.d*p.a
-				,p.pos[1]+p.c+eyelevel
-				,p.pos[2]-p.d*p.b
-				,0,1,0); //good
+		glu.gluPerspective(field,1.0,1.0,view*4);
 
 	}
 	public  void render( GL2 gl, int width, int height )
@@ -174,6 +167,14 @@ public class World extends GLJPanel {
 		resetPerspective(gl);
 		gl.glMatrixMode( GL2.GL_MODELVIEW );
 		gl.glLoadIdentity();
+		
+		glu.gluLookAt(p.pos[0],p.pos[1]+eyelevel,p.pos[2]
+				,p.pos[0]+p.d*p.a
+				,p.pos[1]+p.c+eyelevel
+				,p.pos[2]-p.d*p.b
+				,0,1,0); //good
+
+		
 		renderer = new TextRenderer(new Font("SansSerif", Font.BOLD, 12));
 
 		/* AXIS */
