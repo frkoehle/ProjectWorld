@@ -54,35 +54,28 @@ public class Building {
 		gl.glLineWidth(2);
 		gl.glColor3f(0, 0, 0);
 		gl.glNormal3f(1,0,0);
-		gl.glBegin(GL2.GL_QUADS);
+		gl.glBegin(GL2.GL_QUAD_STRIP);
 		gl.glVertex3f(pos[0]			, pos[1] 			,pos[2]);
 		gl.glVertex3f(pos[0]			, pos[1]+dim[1] 	,pos[2]);
-		gl.glVertex3f(pos[0]			, pos[1]+dim[1] 	,pos[2]+dim[2]);
 		gl.glVertex3f(pos[0]			, pos[1] 			,pos[2]+dim[2]);
-		gl.glEnd();
+		gl.glVertex3f(pos[0]			, pos[1]+dim[1] 	,pos[2]+dim[2]);
+
 		
 		gl.glNormal3f(0,0,1);
-		gl.glBegin(GL2.GL_QUADS);
-		gl.glVertex3f(pos[0]			, pos[1]+dim[1] 	,pos[2]+dim[2]);
-		gl.glVertex3f(pos[0]			, pos[1] 			,pos[2]+dim[2]);
 		gl.glVertex3f(pos[0]+dim[0]		, pos[1] 			,pos[2]+dim[2]);
 		gl.glVertex3f(pos[0]+dim[0]		, pos[1]+dim[1] 	,pos[2]+dim[2]);
-		gl.glEnd();
+
 		
 		gl.glNormal3f(0,0,-1);
-		gl.glBegin(GL2.GL_QUADS);
-		gl.glVertex3f(pos[0]+dim[0]		, pos[1] 			,pos[2]+dim[2]);
-		gl.glVertex3f(pos[0]+dim[0]		, pos[1]+dim[1] 	,pos[2]+dim[2]);
-		gl.glVertex3f(pos[0]+dim[0]		, pos[1]+dim[1] 	,pos[2]);
 		gl.glVertex3f(pos[0]+dim[0]		, pos[1] 			,pos[2]);
-		gl.glEnd();
+		gl.glVertex3f(pos[0]+dim[0]		, pos[1]+dim[1] 	,pos[2]);
+
 		
 		gl.glNormal3f(1,0,0);
-		gl.glBegin(GL2.GL_QUADS);
-		gl.glVertex3f(pos[0]+dim[0]		, pos[1]+dim[1] 	,pos[2]);
-		gl.glVertex3f(pos[0]+dim[0]		, pos[1] 			,pos[2]);
 		gl.glVertex3f(pos[0]			, pos[1] 			,pos[2]);
 		gl.glVertex3f(pos[0]			, pos[1]+dim[1]		,pos[2]);
+
+
 		gl.glEnd();
 		
 		//TOP
