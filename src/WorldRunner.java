@@ -64,16 +64,6 @@ public class WorldRunner{
 		animator = new FPSAnimator(canvas, 60);
 		animator.start();
 
-
-		frame.addWindowListener(new WindowAdapter() {
-
-			// java jframe close
-			public void windowClosing(WindowEvent e) {
-				try{
-					Runtime.getRuntime().exec("xset r on");
-				} catch(Exception er) {}
-			}});
-
 		frame.addMouseListener(new MouseListener() {
 			public void mousePressed(MouseEvent e) {
 
