@@ -7,11 +7,10 @@ public class Player{
 	double c;
 	double d;
 	double jump = 0;
-	double dt = .1;
 	private double viewRotx;
 	private double viewRoty;
 	double fly = 0;
-	double[] acc = new double[] {0,-9.8,0};
+	double[] acc = new double[] {0,-32.174,0};
 	double[] vel = new double[] {0,0,0};
 	double[] pos = new double[3];
 	public Player(int i, int j, int k)
@@ -21,8 +20,9 @@ public class Player{
 		pos[2] = k;
 	}
 
-	public void update()
+	public void update(double dt)
 	{
+		dt = 1/dt;
 		a = Math.sin((double)(viewRotx)/360*2*Math.PI);
 		b = Math.cos((double)(viewRotx)/360*2*Math.PI);
 		c = Math.sin((double)(viewRoty)/360*2*Math.PI);
@@ -34,11 +34,22 @@ public class Player{
 			vel[0] = a*incrz + b*incrx;
 			vel[1] += acc[1]*dt;
 			vel[2] = a*incrx - b*incrz;
-			
+
+			//Convert to unit vector so you cant go super speed diagonally
+
+
+			double mag = Math.sqrt( Math.pow(vel[0], 2) + Math.pow(vel[2], 2) );
+			if(mag!= 0)
+			{
+				vel[0] = vel[0]/mag;
+				vel[2] = vel[2]/mag;
+			}
+
+			System.out.println(vel[0] + " " + vel[2]);
 			pos[0] += vel[0];
 			pos[1] += vel[1];
 			pos[2] += vel[2];
-			
+
 			if(pos[1] <0)
 			{
 				jump = 0;

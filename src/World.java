@@ -30,7 +30,7 @@ public class World extends GLJPanel {
 	TextRenderer renderer;
 	ArrayList<Building> buildings = new ArrayList<Building>();
 	double field = 50; //Field of view angle
-	double view = 300; //View distance
+	double view = 500; //View distance
 	double eyelevel = 5;
 	Player p;
 
@@ -117,7 +117,7 @@ public class World extends GLJPanel {
 		gl.glBlendFunc (GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 		gl.glHint (GL.GL_LINE_SMOOTH_HINT, GL.GL_DONT_CARE); */
 
-		
+		/*
 		//TEXTURE
 
 		Texture tex=null;
@@ -132,7 +132,7 @@ public class World extends GLJPanel {
 		//tex.enable();
 		//tex.bind();
 
-		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
+		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);*/
 
 		gl.glViewport( 0, 0, width, height );
 	}
@@ -145,7 +145,7 @@ public class World extends GLJPanel {
 		final long nsBetweenFrames = (long) (Math.pow(10, 9) / PFPS);
 		final long now = System.nanoTime();
 		while (now - lastPhysicsTime > nsBetweenFrames) {
-			p.update();
+			p.update(PFPS);
 			lastPhysicsTime += nsBetweenFrames;
 		}
 	}
