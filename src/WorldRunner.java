@@ -161,7 +161,7 @@ public class WorldRunner{
 				{
 					if(canvas.p.jump == 0)
 					{
-						canvas.p.vel[1] = 10;
+						canvas.p.vel[1] = 7;
 						canvas.p.jump = 1;
 					}
 				}
