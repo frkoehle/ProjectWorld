@@ -1,6 +1,5 @@
 
 public class Player{
-
 	double incrz = 0;
 	double incrx = 0;
 	double a;
@@ -29,6 +28,7 @@ public class Player{
 		c = Math.sin((double)(viewRoty)/360*2*Math.PI);
 		d = Math.cos((double)(viewRoty)/360*2*Math.PI);
 
+		
 		if(fly == 0)
 		{
 			vel[0] = a*incrz + b*incrx;
@@ -36,7 +36,7 @@ public class Player{
 			vel[2] = a*incrx - b*incrz;
 			
 			pos[0] += vel[0];
-			pos[1]+=vel[1];
+			pos[1] += vel[1];
 			pos[2] += vel[2];
 			
 			if(pos[1] <0)
@@ -48,7 +48,6 @@ public class Player{
 		}
 		else
 		{
-
 			pos[0]+=d*a*incrz;
 			pos[1]+=c*incrz;
 			pos[2]-=d*b*incrz;

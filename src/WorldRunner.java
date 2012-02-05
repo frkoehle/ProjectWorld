@@ -49,6 +49,7 @@ public class WorldRunner{
 	 */
 	Robot robo; //Robots can set the mouse position
 	public WorldRunner(){
+				
 		frame= new JFrame("Hello World!");
 		try {
 			robo = new Robot();
@@ -64,7 +65,14 @@ public class WorldRunner{
 		animator.start();
 
 
-		frame.add(canvas);
+		frame.addWindowListener(new WindowAdapter() {
+
+			// java jframe close
+			public void windowClosing(WindowEvent e) {
+				try{
+					Runtime.getRuntime().exec("xset r on");
+				} catch(Exception er) {}
+			}});
 
 		frame.addMouseListener(new MouseListener() {
 			public void mousePressed(MouseEvent e) {
@@ -109,7 +117,6 @@ public class WorldRunner{
 			}
 		});
 		frame.addKeyListener(new KeyListener() {
-
 			@Override
 			public void keyTyped(KeyEvent e) {
 
@@ -117,6 +124,7 @@ public class WorldRunner{
 
 			@Override
 			public void keyReleased(KeyEvent e) {
+
 				char c = e.getKeyChar();
 				switch (c) {
 				case 'w':
@@ -133,7 +141,6 @@ public class WorldRunner{
 			@Override
 			public void keyPressed(KeyEvent e) {
 				int move = 1;
-
 				if(e.getKeyChar()=='f')
 				{
 					if(canvas.p.fly == 0)
@@ -165,13 +172,21 @@ public class WorldRunner{
 						canvas.p.jump = 1;
 					}
 				}
-				if(e.getKeyCode()==e.VK_ESCAPE)
+				if(e.getKeyCode()==e.VK_ESCAPE) {
+					xseton();
 					System.exit(0);
+				}
 			}
 		});
 		setUpFrame();
 	}
 
+	public static void xseton() {
+		try{
+			Runtime.getRuntime().exec("xset r off");
+		} catch(Exception e) {}
+	}
+	
 	/**
 	 * Main function which will create a new AWT Frame and add a JOGL Canvas to
 	 * it
@@ -179,6 +194,11 @@ public class WorldRunner{
 	 * @param args Runtime args
 	 */
 	public static void main(String[] args) {
+		// HACK to fix autorepeat on x11; other workarounds are unreliable
+		// Note the "xset r on" in exit routines
+		try{
+			Runtime.getRuntime().exec("xset r off");
+		} catch(Exception e) {}
 		new WorldRunner();
 
 	}
@@ -190,6 +210,7 @@ public class WorldRunner{
 
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
+				xseton();
 				System.exit(0);
 			}
 		});

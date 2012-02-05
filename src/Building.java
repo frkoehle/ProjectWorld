@@ -58,6 +58,7 @@ public class Building {
 		gl.glEnableClientState(GL2.GL_VERTEX_ARRAY);
 		for (RenderObject r : renderComponents)
 			r.draw(gl);
+		gl.glDisableClientState(GL2.GL_VERTEX_ARRAY);
 	}
 		
 	
