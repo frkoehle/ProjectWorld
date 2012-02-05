@@ -63,6 +63,7 @@ public class WorldRunner{
 		canvas=new  World (capabilities); //creates a world
 		animator = new FPSAnimator(canvas, 60);
 		animator.start();
+		frame.add(canvas);
 
 		frame.addMouseListener(new MouseListener() {
 			public void mousePressed(MouseEvent e) {
