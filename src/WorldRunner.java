@@ -173,7 +173,7 @@ public class WorldRunner{
 
 	public static void xseton() {
 		try{
-			Runtime.getRuntime().exec("xset r off");
+			Runtime.getRuntime().exec("xset r on");
 		} catch(Exception e) {}
 	}
 	
